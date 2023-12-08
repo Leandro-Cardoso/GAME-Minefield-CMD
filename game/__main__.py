@@ -4,12 +4,16 @@ from field import Field
 
 system('cls')
 
-minefield = Field(5, 10, 15)
+minefield = Field(10, 10, 5)
 print(minefield.rows, 'x', minefield.cols)
 print(minefield.bombs)
 
 minefield.generate_field()
 minefield.generate_bombs()
+minefield.generate_numbers()
 
-for line in minefield.field:
-    print(''.join(line))
+for row in minefield.field:
+    new_row = ''
+    for col in row:
+        new_row += col + ' ' * 2
+    print(new_row)

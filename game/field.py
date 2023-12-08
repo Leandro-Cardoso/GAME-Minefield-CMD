@@ -20,7 +20,7 @@ class Field():
             self.field.append(cols)
     
     def generate_bombs(self):
-        '''Place bombs.'''
+        '''Generate bombs.'''
         for bomb in range(self.bombs):
             while True:
                 row = randint(0, self.rows - 1)
@@ -28,3 +28,38 @@ class Field():
                 if self.field[row][col] == self.char:
                     self.field[row][col] = self.char_b
                     break
+
+    def generate_numbers(self):
+        '''Generate numbers.'''
+        for row in range(self.rows):
+            for col in range(self.cols):
+                if self.field[row][col] != self.char_b:
+                    bombs = 0
+                    # TOP BOMBS:
+                    if 0 <= row - 1 <= self.rows - 1:
+                        if self.field[row - 1][col] == self.char_b:
+                            bombs += 1
+                        if 0 <= col - 1 <= self.cols - 1:
+                            if self.field[row - 1][col - 1] == self.char_b:
+                                bombs += 1
+                        if 0 <= col + 1 <= self.cols - 1:
+                            if self.field[row - 1][col + 1] == self.char_b:
+                                bombs += 1
+                    # MIDDLE BOMBS:
+                    if 0 <= col - 1 <= self.cols - 1:
+                        if self.field[row][col - 1] == self.char_b:
+                            bombs += 1
+                    if 0 <= col + 1 <= self.cols - 1:
+                        if self.field[row][col + 1] == self.char_b:
+                            bombs += 1
+                    # BOTTOM BOMBS:
+                    if 0 <= row + 1 <= self.rows - 1:
+                        if self.field[row + 1][col] == self.char_b:
+                            bombs += 1
+                        if 0 <= col - 1 <= self.cols - 1:
+                            if self.field[row + 1][col - 1] == self.char_b:
+                                bombs += 1
+                        if 0 <= col + 1 <= self.cols - 1:
+                            if self.field[row + 1][col + 1] == self.char_b:
+                                bombs += 1
+                    self.field[row][col] = str(bombs)
